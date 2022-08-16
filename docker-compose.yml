@@ -7,7 +7,7 @@ services:
       args:
         - DEV=true
     ports:
-      - 8001:8000
+      - 8000:8000
     volumes:
       - ./app:/app
     command: >
@@ -17,7 +17,7 @@ services:
       - DB_HOST=db
       - DB_NAME=devdb
       - DB_USER=devuser
-      - DB_PASSWORD=changeme
+      - DB_PASS=changeme
       # - DB_PORT=5434
     depends_on:
       - db
