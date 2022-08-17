@@ -34,6 +34,11 @@ MY_APPS = [
     'core.apps.CoreConfig',
 ]
 
+THIRD_PARTY = [
+    'rest_framework',
+    'drf_spectacular',
+]
+
 STANDARD_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,7 +48,7 @@ STANDARD_APPS = [
     'django.contrib.staticfiles',
 ]
 
-INSTALLED_APPS = STANDARD_APPS+MY_APPS
+INSTALLED_APPS = STANDARD_APPS+THIRD_PARTY+MY_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
