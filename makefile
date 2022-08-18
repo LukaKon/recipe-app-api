@@ -25,6 +25,9 @@ logs:
 flake:
 	docker compose run --rm app sh -c 'flake8'
 
+darker:
+	docker compose run --rm app sh -c 'darker .'
+
 test:
 	docker compose run --rm app sh -c 'python manage.py test'
 
@@ -44,6 +47,7 @@ shell:
 	docker compose run --rm app sh -c 'python manage.py shell_plus'
 #	 docker compose exec app python3 manage.py shell_plus
 
+# TODO:
 dump:
 	docker exec -i postgres_db /bin/bash -c "PGPASSWORD=$(DATABASE_PASSWORD) pg_dump -h localhost --username $(DATABASE_USER) $(DATABASE_NAME)" > dump.sql
 	# docker compose exec db pg_dump -c -U ${DATABASE_USER} ${DATABASE_NAME} --no-owner > dump.sql

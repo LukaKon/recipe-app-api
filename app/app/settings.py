@@ -32,10 +32,12 @@ ALLOWED_HOSTS = []
 # Application definition
 MY_APPS = [
     'core.apps.CoreConfig',
+    'user.apps.UserConfig',
 ]
 
 THIRD_PARTY = [
     'rest_framework',
+    'rest_framework.authtoken',
     'drf_spectacular',
 ]
 
