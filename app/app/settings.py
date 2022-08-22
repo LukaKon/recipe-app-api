@@ -33,9 +33,11 @@ ALLOWED_HOSTS = []
 MY_APPS = [
     'core.apps.CoreConfig',
     'user.apps.UserConfig',
+    'recipe.apps.RecipeConfig',
 ]
 
 THIRD_PARTY = [
+    'django_extensions',
     'rest_framework',
     'rest_framework.authtoken',
     'drf_spectacular',
