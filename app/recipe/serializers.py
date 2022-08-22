@@ -1,5 +1,5 @@
 """
-    Serializer for recipe APIs.
+    Serializers for recipe APIs.
 """
 from core.models import Recipe, Tag
 from rest_framework import serializers

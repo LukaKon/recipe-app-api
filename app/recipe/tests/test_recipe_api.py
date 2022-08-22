@@ -20,7 +20,7 @@ def detail_url(recipe_id):
 
 
 def create_recipe(user, **params):
-    """Create and return sample recipe."""
+    """Create and return a sample recipe."""
     defaults = {
         'title': 'Sample recipe title',
         'time_minutes': 22,
@@ -40,7 +40,7 @@ def create_user(**params):
     return get_user_model().objects.create_user(**params)
 
 
-class PublicRecipeAPITests(TestCase):
+class PublicRecipeApiTests(TestCase):
     """Test unauthenticated API requests."""
 
     def setUp(self):
@@ -90,10 +90,10 @@ class PrivateRecipeAPITests(TestCase):
         res = self.client.get(RECIPES_URL)
 
         recipes = Recipe.objects.filter(user=self.user)
-        serilaizer = RecipeSerializer(recipes, many=True)
+        serializer = RecipeSerializer(recipes, many=True)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertEqual(res.data, serilaizer.data)
+        self.assertEqual(res.data, serializer.data)
 
     def test_get_recipe_detail(self):
         """Test get recipe detail."""
@@ -124,13 +124,14 @@ class PrivateRecipeAPITests(TestCase):
         self.assertEqual(recipe.user, self.user)
 
     def test_partial_update(self):
-        """Test partial update of recipe."""
+        """Test partial update of a recipe."""
         original_link = 'https://example.com/recipe.pdf'
         recipe = create_recipe(
             user=self.user,
             title='Sample recipe title',
             link=original_link,
         )
+
         payload = {
             'title': 'New recipe title',
         }
