@@ -1,15 +1,22 @@
 """
     Views for the recipe APIs.
 """
+from rest_framework import (
+    mixins,
+    viewsets,
+    status,
+)
+from rest_framework.decorators import action
+from rest_framework.response import Response
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+
 from core.models import (
     Recipe,
     Tag,
     Ingredient,
 )
 from recipe import serializers
-from rest_framework import mixins, viewsets
-from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
 
 
 class RecipeViewSet(viewsets.ModelViewSet):
@@ -27,12 +34,31 @@ class RecipeViewSet(viewsets.ModelViewSet):
         """Return the serializer class for request."""
         if self.action == 'list':
             return serializers.RecipeSerializer
+        elif self.action == 'upload_image':
+            return serializers.RecipeImageSerializer
 
         return self.serializer_class
 
     def perform_create(self, serializer):
         """Create a new recipe."""
         serializer.save(user=self.request.user)
+
+    """
+    IMPORTANT:
+    detail=True is for detail object;
+    detail=False is for list of objects
+    """
+    @action(methods=['POST'], detail=True, url_path='upload-image')
+    def upload_image(self, request, pk=None):
+        """Upload an image to recipe."""
+        recipe = self.get_object()
+        serializer = self.get_serializer(recipe, data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 # recipe attributes base class (for Tags and Ingrecients)
